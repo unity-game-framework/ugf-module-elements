@@ -9,37 +9,45 @@ namespace UGF.Module.Elements.Runtime
     public class ElementModule : ApplicationModuleBase, IElementModule, IApplicationLauncherEventHandler
     {
         public IElementContext Context { get; }
-        public IElementModuleDescription Description { get; }
         public IReadOnlyList<IElement> Elements { get { return m_elements.Collection; } }
 
         private readonly InitializeCollection<IElement> m_elements = new InitializeCollection<IElement>();
+        private readonly HashSet<IElement> m_set = new HashSet<IElement>();
 
-        public ElementModule(IElementContext context, IElementModuleDescription description)
+        public ElementModule(IElementContext context)
         {
             Context = context ?? throw new ArgumentNullException(nameof(context));
-            Description = description ?? throw new ArgumentNullException(nameof(description));
-
-            for (int i = 0; i < Description.Elements.Count; i++)
-            {
-                IElementBuilder builder = Description.Elements[i];
-                IElement element = builder.Build(Context);
-
-                m_elements.Add(element);
-            }
         }
 
-        protected override void OnInitialize()
+        protected override void OnPostInitialize()
         {
-            base.OnInitialize();
+            base.OnPostInitialize();
 
             m_elements.Initialize();
         }
 
-        protected override void OnUninitialize()
+        protected override void OnPreUninitialize()
         {
-            base.OnUninitialize();
+            base.OnPreUninitialize();
 
             m_elements.Uninitialize();
+        }
+
+        public void Add(IElement element)
+        {
+            if (element == null) throw new ArgumentNullException(nameof(element));
+            if (m_set.Contains(element)) throw new ArgumentException($"Element already exists: '{element}'.");
+
+            m_elements.Add(element);
+            m_set.Add(element);
+        }
+
+        public void Remove(IElement element)
+        {
+            if (m_set.Remove(element))
+            {
+                m_elements.Remove(element);
+            }
         }
 
         public T Get<T>() where T : IElement
