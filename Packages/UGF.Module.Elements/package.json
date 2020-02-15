@@ -8,5 +8,8 @@
         "name": "Unity Game Framework",
         "url": "https://github.com/unity-game-framework"
     },
-    "dependencies": {}
+    "dependencies": {
+        "com.ugf.application": "4.1.0-preview",
+        "com.ugf.elements": "0.1.0-preview"
+    }
 }
