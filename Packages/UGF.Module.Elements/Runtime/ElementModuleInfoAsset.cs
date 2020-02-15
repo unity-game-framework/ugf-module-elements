@@ -1,13 +1,23 @@
-﻿using UGF.Application.Runtime;
+﻿using System.Collections.Generic;
+using UGF.Application.Runtime;
 using UGF.Elements.Runtime;
+using UnityEngine;
 
 namespace UGF.Module.Elements.Runtime
 {
+    [CreateAssetMenu(menuName = "UGF/Module.Elements/ElementModuleInfo", order = 2000)]
     public class ElementModuleInfoAsset : ApplicationModuleInfoAsset<IElementModule>
     {
+        [SerializeField] private List<ElementBuilderAsset> m_elements = new List<ElementBuilderAsset>();
+
+        public List<ElementBuilderAsset> Elements { get { return m_elements; } }
+
         public IElementModuleDescription GetDescription()
         {
-            return null;
+            return new ElementModuleDescription
+            {
+                Elements = new List<IElementBuilder>(m_elements)
+            };
         }
 
         protected override IApplicationModule OnBuild(IApplication application)
