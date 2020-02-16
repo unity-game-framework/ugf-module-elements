@@ -27,6 +27,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Nothing.
 
 ## 0.1.0-preview - 2020-02-16
+- [Commits](https://github.com/unity-game-framework/ugf-module-elements/compare/0.1.0-preview...0.2.0-preview)
+- [Milestone](https://github.com/unity-game-framework/ugf-module-elements/milestone/2?closed=1)
+
+### Changed
+- Package dependencies:
+    - `com.ugf.elements`: from `0.1.0-preview` to `0.2.0-preview`.
+- Change `ElementModule` with `ElementCollection`.
+
+## 0.1.0-preview - 2020-02-16
 - [Commits](https://github.com/unity-game-framework/ugf-module-elements/compare/1dd763d...0.1.0-preview)
 - [Milestone](https://github.com/unity-game-framework/ugf-module-elements/milestone/1?closed=1)
 
