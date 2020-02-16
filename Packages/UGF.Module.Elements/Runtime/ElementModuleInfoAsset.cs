@@ -22,7 +22,7 @@ namespace UGF.Module.Elements.Runtime
                 ElementBuilderAsset builder = m_elements[i];
                 IElement element = builder.Build(context);
 
-                module.Add(element);
+                module.Elements.Add(element);
             }
 
             return module;
