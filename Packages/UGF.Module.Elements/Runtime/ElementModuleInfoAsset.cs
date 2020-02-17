@@ -12,10 +12,19 @@ namespace UGF.Module.Elements.Runtime
 
         public List<ElementBuilderAsset> Elements { get { return m_elements; } }
 
+        public IElementModuleDescription GetDescription()
+        {
+            return new ElementModuleDescription
+            {
+                Elements = new List<IElementBuilder>(m_elements)
+            };
+        }
+
         protected override IApplicationModule OnBuild(IApplication application)
         {
             var context = new ElementContext { application };
-            var module = new ElementModule(context);
+            IElementModuleDescription description = GetDescription();
+            var module = new ElementModule(context, description);
 
             for (int i = 0; i < m_elements.Count; i++)
             {

@@ -7,18 +7,28 @@ namespace UGF.Module.Elements.Runtime
     public class ElementModule : ApplicationModuleBase, IElementModule, IApplicationLauncherEventHandler
     {
         public IElementContext Context { get; }
+        public IElementModuleDescription Description { get; }
         public IElementCollection Elements { get { return m_parent.Children; } }
 
         private readonly ElementParent<IElement> m_parent = new ElementParent<IElement>();
 
-        public ElementModule(IElementContext context)
+        public ElementModule(IElementContext context, IElementModuleDescription description)
         {
             Context = context ?? throw new ArgumentNullException(nameof(context));
+            Description = description ?? throw new ArgumentNullException(nameof(description));
         }
 
         protected override void OnPostInitialize()
         {
             base.OnPostInitialize();
+
+            for (int i = 0; i < Description.Elements.Count; i++)
+            {
+                IElementBuilder builder = Description.Elements[i];
+                IElement element = builder.Build(Context);
+
+                m_parent.Children.Add(element);
+            }
 
             m_parent.Initialize();
         }
@@ -28,6 +38,7 @@ namespace UGF.Module.Elements.Runtime
             base.OnPreUninitialize();
 
             m_parent.Uninitialize();
+            m_parent.Children.Clear();
         }
 
         void IApplicationLauncherEventHandler.OnLaunched(IApplication application)
