@@ -4,14 +4,14 @@ UGF.Module.Elements
 
 ## Info
 
-- **Version**: `0.2.0-preview`
+- **Version**: `0.3.0-preview`
 - **Unity Version**: `2019.3.0`
 - **API Compatibility Level**: `.NET Standard 2.0`
 
 ### Dependencies
 
 - [UGF.Application](https://github.com/unity-game-framework/ugf-application): `4.1.0-preview`
-- [UGF.Elements](https://github.com/unity-game-framework/ugf-elements): `0.2.0-preview`
+- [UGF.Elements](https://github.com/unity-game-framework/ugf-elements): `0.2.2-preview`
 
 ### Changelog
 

@@ -26,6 +26,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security
 - Nothing.
 
+## 0.3.0-preview - 2020-02-17
+- [Commits](https://github.com/unity-game-framework/ugf-module-elements/compare/0.2.0-preview...0.3.0-preview)
+- [Milestone](https://github.com/unity-game-framework/ugf-module-elements/milestone/3?closed=1)
+
+### Added
+- Add `ElementModuleDescription` with collection of `IElement` to create.
+
+### Changed
+- Package dependencies:
+    - `com.ugf.elements`: from `0.2.0-preview` to `0.2.2-preview`.
+
 ## 0.2.0-preview - 2020-02-16
 - [Commits](https://github.com/unity-game-framework/ugf-module-elements/compare/0.1.0-preview...0.2.0-preview)
 - [Milestone](https://github.com/unity-game-framework/ugf-module-elements/milestone/2?closed=1)
