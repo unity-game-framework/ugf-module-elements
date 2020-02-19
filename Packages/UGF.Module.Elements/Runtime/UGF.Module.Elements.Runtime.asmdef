@@ -3,7 +3,8 @@
     "references": [
         "GUID:a4312e46e9f64bb4aa011ac96ffd2a61",
         "GUID:d067af32d09350a4bb33960432735e4d",
-        "GUID:8170e5f803bffcd488da34eb65a3be76"
+        "GUID:8170e5f803bffcd488da34eb65a3be76",
+        "GUID:e95b3da452542ae4b995fb0ece7e6d10"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -12,6 +13,12 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": [],
+    "versionDefines": [
+        {
+            "name": "com.ugf.module.scenes",
+            "expression": "0.5.0-preview",
+            "define": "UGF_MODULE_ELEMENTS_SCENES"
+        }
+    ],
     "noEngineReferences": false
 }
