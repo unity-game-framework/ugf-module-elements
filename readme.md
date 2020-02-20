@@ -4,7 +4,7 @@ UGF.Module.Elements
 
 ## Info
 
-- **Version**: `0.4.0-preview`
+- **Version**: `0.4.1-preview`
 - **Unity Version**: `2019.3.0`
 - **API Compatibility Level**: `.NET Standard 2.0`
 
