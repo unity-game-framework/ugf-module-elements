@@ -17,7 +17,7 @@ namespace UGF.Module.Elements.Runtime
         public ElementModuleScenesController(IElementContext context)
         {
             Context = context ?? throw new ArgumentNullException(nameof(context));
-            SceneModule = context.Get<IApplication>().GetModule<ISceneModule>();
+            SceneModule = Context.Get<IApplication>().GetModule<ISceneModule>();
         }
 
         protected override void OnInitialize()
@@ -26,7 +26,7 @@ namespace UGF.Module.Elements.Runtime
 
             foreach (KeyValuePair<Scene, SceneController> pair in SceneModule.Controllers)
             {
-                OnSceneModuleControllerAdd(pair.Value);
+                CreateElements(pair.Value, true);
             }
 
             SceneModule.ControllerAdd += OnSceneModuleControllerAdd;
@@ -41,6 +41,11 @@ namespace UGF.Module.Elements.Runtime
 
         private void OnSceneModuleControllerAdd(SceneController controller)
         {
+            CreateElements(controller, false);
+        }
+
+        private void CreateElements(SceneController controller, bool initialize)
+        {
             if (controller.HasContainer)
             {
                 SceneContainer container = controller.Container;
@@ -52,6 +57,11 @@ namespace UGF.Module.Elements.Runtime
                         IElement element = builder.Build(Context);
 
                         controller.Children.Add(element);
+
+                        if (initialize)
+                        {
+                            element.Initialize();
+                        }
                     }
                 }
             }
