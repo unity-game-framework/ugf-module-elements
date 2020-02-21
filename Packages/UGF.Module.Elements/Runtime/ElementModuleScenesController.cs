@@ -26,25 +26,20 @@ namespace UGF.Module.Elements.Runtime
 
             foreach (KeyValuePair<Scene, SceneController> pair in SceneModule.Controllers)
             {
-                CreateElements(pair.Value, true);
+                OnSceneModuleControllerAdded(pair.Value);
             }
 
-            SceneModule.ControllerAdd += OnSceneModuleControllerAdd;
+            SceneModule.ControllerAdded += OnSceneModuleControllerAdded;
         }
 
         protected override void OnUninitialize()
         {
             base.OnUninitialize();
 
-            SceneModule.ControllerAdd -= OnSceneModuleControllerAdd;
+            SceneModule.ControllerAdded -= OnSceneModuleControllerAdded;
         }
 
-        private void OnSceneModuleControllerAdd(SceneController controller)
-        {
-            CreateElements(controller, false);
-        }
-
-        private void CreateElements(SceneController controller, bool initialize)
+        private void OnSceneModuleControllerAdded(SceneController controller)
         {
             if (controller.HasContainer)
             {
@@ -58,10 +53,7 @@ namespace UGF.Module.Elements.Runtime
 
                         controller.Children.Add(element);
 
-                        if (initialize)
-                        {
-                            element.Initialize();
-                        }
+                        element.Initialize();
                     }
                 }
             }
