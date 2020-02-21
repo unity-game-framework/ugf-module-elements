@@ -26,6 +26,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security
 - Nothing.
 
+## 0.4.2-preview - 2020-02-21
+- [Commits](https://github.com/unity-game-framework/ugf-module-elements/compare/0.4.1-preview...0.4.2-preview)
+- [Milestone](https://github.com/unity-game-framework/ugf-module-elements/milestone/7?closed=1)
+
+### Changed
+- Update to support `UGF.Module.Scenes` package of `0.6.0-preview` version.
+
 ## 0.4.1-preview - 2020-02-20
 - [Commits](https://github.com/unity-game-framework/ugf-module-elements/compare/0.4.0-preview...0.4.1-preview)
 - [Milestone](https://github.com/unity-game-framework/ugf-module-elements/milestone/6?closed=1)
