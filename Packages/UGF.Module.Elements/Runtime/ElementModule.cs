@@ -12,35 +12,11 @@ namespace UGF.Module.Elements.Runtime
 
         private readonly ElementParent<IElement> m_parent = new ElementParent<IElement>();
 
-#if UGF_MODULE_ELEMENTS_SCENES
-        private readonly ElementModuleScenesController m_scenesController;
-#endif
-
         public ElementModule(IElementContext context, IElementModuleDescription description)
         {
             Context = context ?? throw new ArgumentNullException(nameof(context));
             Description = description ?? throw new ArgumentNullException(nameof(description));
-
-#if UGF_MODULE_ELEMENTS_SCENES
-            m_scenesController = new ElementModuleScenesController(Context);
-#endif
         }
-
-#if UGF_MODULE_ELEMENTS_SCENES
-        protected override void OnInitialize()
-        {
-            base.OnInitialize();
-
-            m_scenesController.Initialize();
-        }
-
-        protected override void OnUninitialize()
-        {
-            base.OnUninitialize();
-
-            m_scenesController.Uninitialize();
-        }
-#endif
 
         protected override void OnPostInitialize()
         {
