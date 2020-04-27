@@ -1,0 +1,38 @@
+
+name: Build
+
+on: repository_dispatch
+
+env:
+  version: ${{ github.event.client_payload.version }}
+  name: ${{ github.event.client_payload.name }}
+  package: ${{ github.event.client_payload.package }}
+  user: ${{ github.event.client_payload.user }}
+  repo: ${{ github.event.client_payload.repo }}
+
+jobs:
+  main:
+    name: Main
+    runs-on: ubuntu-latest
+    if: github.event.action == 'Build'
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ env.version }}
+    - name: Node
+      uses: actions/setup-node@master
+    - name: Pack
+      run: |
+        npm pack ${{ github.workspace }}/${{ env.package }}
+    - name: Upload
+      run: |
+        file=${{ env.name }}-${{ env.version }}.tgz
+        auth=u${{ secrets.bintrayUserName }}:${{ secrets.bintrayUserToken }}
+        host=https://api.bintray.com/content
+        repo=$host/${{ env.user }}/${{ env.repo }}
+        package=${{ env.name }}/${{ env.version }}
+        path=${{ env.name }}/-/
+
+        curl --silent --show-error --fail -T $file -$auth $repo/$package/$path
+        curl --silent --show-error --fail -X POST -$auth $repo/$package/publish

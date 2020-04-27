@@ -1,0 +1,28 @@
+changelog:
+  title: '# Changelog'
+  description: |
+    All notable changes to this project will be documented in this file.
+
+    The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+    and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+  descriptionEmptyRelease: |
+    - No release notes.
+releaseNotes:
+  header: ''
+  title: '### Release Notes'
+  description: ''
+  descriptionEmptyRelease: |
+    - No release notes.
+  groups:
+  - name: Added
+    labels: Feature
+  - name: Changed
+    labels: Change
+  - name: Deprecated
+    labels: Deprecation
+  - name: Removed
+    labels: Remove
+  - name: Fixed
+    labels: Bug
+  - name: Security
+    labels: Security

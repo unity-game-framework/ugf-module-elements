@@ -1,0 +1,64 @@
+
+name: Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  main:
+    name: Main
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Config
+      id: config
+      uses: unity-game-framework/ugf-github-actions/file-access@master
+      with:
+        file: .github/build.yml
+        get: |
+          name:
+            path: name
+            step: true
+          package:
+            path: package
+            step: true
+    - name: Readme
+      uses: unity-game-framework/ugf-github-actions/readme-package@master
+      with:
+        package: ${{ steps.config.outputs.package }}/package.json
+        user: ${{ secrets.userName }}
+        email: ${{ secrets.userEmail }}
+    - name: Changelog
+      id: generate
+      uses: unity-game-framework/ugf-github-actions/changelog-milestone@master
+      with:
+        milestone: ${{ github.event.release.tag_name }}
+    - name: Update
+      uses: unity-game-framework/ugf-github-actions/release-update@master
+      if: steps.generate.outputs.content != ''
+      with:
+        id: ${{ github.event.release.tag_name }}
+        body: |
+          ${{ github.event.release.body }}
+          
+          ${{ steps.generate.outputs.content }}
+    - name: Commit
+      uses: unity-game-framework/ugf-github-actions/changelog-releases@master
+      with:
+        user: ${{ secrets.userName }}
+        email: ${{ secrets.userEmail }}
+    - name: Parameters
+      id: params
+      uses: unity-game-framework/ugf-github-actions/build-params@master
+      with:
+        params: ${{ github.event.release.body }}
+    - name: Dispatch
+      uses: unity-game-framework/ugf-github-actions/repo-dispatch@master
+      with:
+        token: ${{ secrets.userToken }}
+        eventType: Build
+        payload: |
+          version: ${{ github.event.release.tag_name }}
+          ${{ steps.params.outputs.content }}
